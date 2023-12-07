@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- basic -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <!-- mobile metas -->
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+      <!-- site metas -->
+      <title>Sheet Extractor AI</title>
+      <meta name="keywords" content="">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- bootstrap css -->
+      <link rel="stylesheet" href="css/bootstrap.min.css">
+      <!-- style css -->
+      <link rel="stylesheet" href="css/style.css">
+      <!-- Responsive-->
+      <link rel="stylesheet" href="css/responsive.css">
+      <!-- fevicon -->
+      <link rel="icon" href="images/fevicon.png" type="image/gif" />
+      <!-- Scrollbar Custom CSS -->
+      <link rel="stylesheet" href="css/jquery.mCustomScrollbar.min.css">
+      <!-- Tweaks for older IEs-->
+      <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css" media="screen">
+   </head>
+   <!-- body -->
+   <body class="main-layout">
+      <!-- loader  -->
+      <div class="loader_bg">
+         <div class="loader"><img src="images/loading.gif" alt="#" /></div>
+      </div>
+      <!-- end loader -->
+      <div id="mySidepanel" class="sidepanel">
+         <a href="javascript:void(0)" class="closebtn" onclick="closeNavigation()">×</a>
+         <a href="#about">About</a>
+         <a href="#how">How</a>
+         <a href="#team">Team</a>
+      </div>
+      <!-- header -->
+      <header>
+         <!-- header inner -->
+         <div class="header">
+            <div class="container-fluid">
+               <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-4 col-sm-4">
+                     <div class="navigation_button">
+                        <button onclick="openNavigation()"><img src="images/menu_icon.png" alt="#"/> </button> 
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </header>
+      <!-- end header inner -->
+      <!-- end header -->
+      <!-- banner -->
+      <section class="banner_main">
+         <div class="text-bg">
+            <h2>Dankook University Software Highschool</h2>
+            <h1>Software Festival</h1>
+            <span>Sheet Extractor AI</span>
+            <a class="read_more" href="https://dankook.sen.hs.kr/" target="_blank" rel="noopener noreferrer">Homepage</a>
+         </div>
+      </section>
+      <!-- end banner -->
+      <!-- about section -->
+      <div id="about" class="about">
+         <div class="container">
+            <div class="row ">
+               <div class="col-md-5">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <div class="titlepage">
+                           <h2>About</h2>
+                           <p>단국대학교 부속 소프트웨어 고등학교에서 주최하는 Software Festival 은 학생들이 반학기 동안<br>전문 멘토와 소통을 통해 준비한 프로젝트를<br>소개하는 축제입니다.<br></p>
+                           <p>저희 팀은 인공지능 학과 학생들로 구성되어<br>인공지능을 활용한 악보 추출 프로그램을 만들어보았습니다.</p>
+                        </div>
+                     </div>
+                     <div class="col-md-12">
+                        <div class="about_img">
+                           <figure><img src="images/about_img.jpg" alt="#"/></figure>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-7">
+                  <div class="about_right">
+                     <figure><img src="images/about_right.jpg" alt="#"/></figure>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- about section -->
+      <!-- software section -->
+      <div class="software">
+         <div class="container-fluid">
+            <div class="row d_flex">
+               <div class="col-md-6">
+                  <div class="titlepage">
+                     <h2>Sheet Extractor AI</h2>
+                     <p>Song Maker 에서 Marimba 또는 Piano 악기로 음악을<br>작곡하고 .wav 파일을 업로드해 악보를 추출해보세요.</p>
+                     <label for="file" id="file_label">파일</label>
+                     <input type="file" id="file" accept=".wav">
+                     <br>
+                     <label for="bpm" id="bpm_label">BPM</label>
+                     <input type="number" id="bpm">
+                     <br>
+                     <br>
+                     <a class="read_more" href="https://musiclab.chromeexperiments.com/Song-Maker" target="_blank" rel="noopener noreferrer">Song Maker</a>
+                     <button class="read_more" type="button" onclick="OnSubmit()" id="extract">악보 추출</button>
+                     <style>
+                        #extract:disabled {
+                              background-color: #ccc; /* 버튼의 배경색을 회색으로 설정 */
+                              color: #333; /* 버튼의 글자색을 어두운 회색으로 설정 */
+                              cursor: not-allowed; /* 마우스 커서를 '금지' 신호로 변경 */
+                        }
+                     </style>
+                  </div>
+               </div>
+               <div class="col-md-6 padding_right2">
+                  <div class="software_img">
+                     <figure><img src="images/software_img.jpg" alt="#"/></figure>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="container-fluid" id="result" style="display: none;">
+            <div class="row">
+               <div class="col-md-6">
+                  <audio id="audio" src="" controls>음원</audio>
+               </div>
+               <div class="col-md-6">
+                  <a class="read_more" style="margin-top: 0 auto" id="sheet" href="#" download>악보 다운로드</a>
+               </div>   
+               <div class="col-md-12">
+                  <figure style="padding: 0;"><img alt="loading" id="wave" src="" style="border-radius: 20px;"/></figure>
+                  <figure style="padding: 0;"><img alt="loading" id="stft" src="" style="border-radius: 20px;"/></figure>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- software section -->
+      <!-- We Do section -->
+      <div id="how" class="how">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Sheet Extractor AI</h2>
+                     <p>How does it works?</p>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div id="hover_color" class="how_box">
+                     <span>1</span>
+                     <h3>STFT Feature Extraction</h3>
+                     <h4>with Librosa STFT</h4>
+                     <p>음원 데이터 분석에 적합한<br>FFT의 하위 분류인<br>STFT를 활용해 STFT 특징 추출</p>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div id="hover_color" class="how_box">
+                     <span>2</span>
+                     <h3>Beat State Extraction</h3>
+                     <h4>with Keras B-LSTM</h4>
+                     <p>대용량 시계열 데이터 분석에 적합한<br>RNN의 하위 분류인<br>LSTM을 활용해 박 상태 추출</p>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div id="hover_color" class="how_box">
+                     <span>3</span>
+                     <h3>Beat Extraction</h3>
+                     <h4>with Procedual Error Compensation</h4>
+                     <p>절차적 오차 보정을 통해<br>박 상태 유지 시간에 따른 박 판별<br>추후 AI 모델을 활용할 예정</p>
+                  </div>
+               </div>
+               <div class="col-md-12">
+                  <a class="read_more" href="#">Read More</a>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- end We Do section -->
+      <!-- Our  team section -->
+      <div id="team" class="team">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-12">
+                  <div class="titlepage">
+                     <h2>Team</h2>
+                     <p>Name & Role</p>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>DKSH 박경찬</h3>
+                        <p>API Programming</p>
+                        <p>Website Full Stack</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>DKSH 김도연</h3>
+                        <p>Website Frontend</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>DKSH 이주원</h3>
+                        <p>Website Full Stack</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>DKSH 이승헌</h3>
+                        <p>API Programming</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>DKSH 조민규</h3>
+                        <p>API Data Processing</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-md-4">
+                  <div class="team_box">
+                     <div class="social_box">
+                        <h3>나희목</h3>
+                        <p>Mentor</p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!--  footer -->
+      <footer>
+         <div class="footer">
+            <div class="container">
+               <div class="row">
+                  <div class="col-md-4">
+                     <h3>Useful links</h3>
+                     <p>Useful links 설명글 </p>
+                  </div>
+                  <div class="col-md-4">
+                     <div class="fid_box">
+                        <h3>Find us  </h3>
+                        <ul class="location_icon">
+                           <li><a href="#"><i class="fa fa-map-marker" aria-hidden="true"></i></a><br> 주소란</li>
+                           <li><a href="#"><i class="fa fa-phone" aria-hidden="true"></i></a><br>
+                              (+82) 1234567890<br> (+82) 1234567890
+                           </li>
+                           <li><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a><br> 테스트용@gmail.com</li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-md-4">
+                  </div>
+               </div>
+            </div>
+            <div class="copyright">
+               <div class="container">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <p>© 2023 All Rights Reserved. Design by<a href="https://www.google.com/"> 테스트링크</a></p>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </footer>
+      <!-- end footer -->
+      <!-- Javascript files-->
+      <script src="js/jquery.min.js"></script>
+      <script src="js/popper.min.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+      <script src="js/jquery-3.0.0.min.js"></script>
+      <!-- sidebar -->
+      <script src="js/jquery.mCustomScrollbar.concat.min.js"></script>
+      <script src="js/custom.js"></script>
+      <script>
+         function openNavigation() {
+           document.getElementById("mySidepanel").style.width = "250px";
+         }
+         
+         function closeNavigation() {
+           document.getElementById("mySidepanel").style.width = "0";
+         }
+         function OnSubmit(){
+            if(document.getElementById('file').files.length == 0){
+               alert("파일을 선택해주세요.")
+               return;
+            }
+            if(document.getElementById('bpm').value <= 0){
+               alert("BPM 값을 입력해주세요.")
+               return;
+            }
+            document.getElementById('extract').disabled = true;
+            document.getElementById('result').style.display = "none";
+
+            var formData = new FormData();
+            var identifier = Date.now();
+            
+            var fileName = document.getElementById('file').files[0].name.split('.')[0];
+            formData.append("identifier", identifier)
+            formData.append("file", $('#file')[0].files[0]);
+            formData.append("bpm", document.getElementById('bpm').value);
+            $.ajax({
+               url:'extract.php',
+               type:'POST',
+               dataType:'html',
+               enctype:'multipart/form-data',
+               processData:false,
+               contentType:false,
+               data:formData,
+               success:function(result) {
+                  console.log("성공");
+                  console.log(result);
+
+                  document.getElementById('audio').src = ".\\temp\\" + identifier + "\\" + fileName + ".wav";
+                  document.getElementById('stft').src = ".\\temp\\" + identifier + "\\" + fileName + ".sf.png";
+                  document.getElementById('wave').src = ".\\temp\\" + identifier + "\\" + fileName + ".wf.png";
+                  document.getElementById('sheet').href = ".\\temp\\" + identifier + "\\" + fileName + ".xml";
+                  
+                  document.getElementById('extract').disabled = false;
+                  document.getElementById('result').style.display = "block";
+               },
+               error:function(error) {
+                  document.getElementById('extract').disabled = false;
+                  document.getElementById('sheet').style.display = "none";
+                  console.log("실패");
+               }
+            })
+         }
+   </script>
+   </body>
+</html>
+

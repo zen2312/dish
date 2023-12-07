@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Sheet Extractor AI</title>
+		<script src="https://code.jquery.com/jquery-latest.js"></script> 
+	</head>
+<body>
+	<label for="file">파일: </label>
+	<input type="file" id="file">
+	<br>
+	<label for="bpm">BPM: </label>
+	<input type="number" id="bpm">
+	<button type="button" onclick="OnSubmit()">악보 추출</button>
+	<div style="max-width: 75%; display: none;" id="result">
+		<audio id="audio" src="" controls>음원</audio>
+		<br>
+		<img alt="loading" id="wave" src="" style="max-width: 75%; height: auto;"/>
+		<br>
+		<img alt="loading" id="stft" src="" style="max-width: 75%; height: auto;"/>
+		<br>
+		<a id="sheet" href="" download>악보 다운로드</a>
+	</div>
+	<script type="text/javascript">
+		function OnSubmit(){
+			var formData = new FormData();
+			var identifier = Date.now();
+			var fileName = document.getElementById('file').files[0].name.split('.')[0];
+			formData.append("identifier", identifier)
+			formData.append("file", $('#file')[0].files[0]);
+			formData.append("bpm", document.getElementById('bpm').value);
+			$.ajax({
+				url:'extract.php',
+				type:'POST',
+				dataType:'html',
+				enctype:'multipart/form-data',
+				processData:false,
+				contentType:false,
+				data:formData,
+				success:function(result) {
+					console.log("성공");
+					console.log(result);
+
+					document.getElementById('result').style.display = "block";
+					document.getElementById('audio').src = ".\\temp\\" + identifier + "\\" + fileName + ".wav";
+					document.getElementById('stft').src = ".\\temp\\" + identifier + "\\" + fileName + ".sf.png";
+					document.getElementById('wave').src = ".\\temp\\" + identifier + "\\" + fileName + ".wf.png";
+					document.getElementById('sheet').href = ".\\temp\\" + identifier + "\\" + fileName + ".xml";
+				},
+				error:function(error) {
+					console.log("실패");
+				}
+			})
+		}
+	</script>
+</body>
+</html>
